@@ -1,0 +1,274 @@
+#include <Adafruit_Sensor.h>
+#include <Adafruit_LSM35.h>
+#include <elapsedMillis.h>
+
+// Define the onboard LED pin
+const int ledPin = 13;
+
+// Define variables to track time
+elapsedMillis blinkTimer;
+
+// Define temperature thresholds
+const float lowThreshold = 30.0; // Below this temperature, blink every 250ms
+const float highThreshold = 30.0; // Above this temperature, blink every 500ms
+
+// Create an instance of the Adafruit_LSM35 class
+Adafruit_LSM35 lsm35 = Adafruit_LSM35();
+
+// Define states
+enum LedState {
+  LOW_TEMP,
+  HIGH_TEMP
+};
+
+LedState ledState = LOW_TEMP;
+
+void setup() {
+  // Set the LED pin as an output
+  pinMode(ledPin, OUTPUT);
+  // Initialize communication with the sensor
+  if (!lsm35.begin()) {
+    Serial.println("Failed to initialize LSM35 sensor!");
+    while (1);
+  }
+}
+
+void loop() {
+  // Read the temperature from the sensor
+  sensors_event_t event;
+  lsm35.getEvent(&event);
+
+  // Check if the sensor reading is valid
+  if (event.temperature.isValid()) {
+    // Get the temperature in Celsius
+    float temperature = event.temperature.degrees;
+
+    // Print temperature value for debugging (optional)
+    Serial.print("Temperature: ");
+    Serial.println(temperature);
+
+    // Check temperature conditions and control LED blinking accordingly
+    switch (ledState) {
+      case LOW_TEMP:
+        if (temperature >= highThreshold) {
+          // Change state to HIGH_TEMP
+          ledState = HIGH_TEMP;
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+
+      case HIGH_TEMP:
+        if (temperature < lowThreshold) {
+          // Change state to LOW_TEMP
+          ledState = LOW_TEMP;
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+    }
+
+    // Update LED based on state and elapsed time
+    switch (ledState) {
+      case LOW_TEMP:
+        if (blinkTimer >= 250) {
+          // Toggle LED state
+          digitalWrite(ledPin, !digitalRead(ledPin));
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+
+      case HIGH_TEMP:
+        if (blinkTimer >= 500) {
+          // Toggle LED state
+          digitalWrite(ledPin, !digitalRead(ledPin));
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+    }
+  }
+}#include <Adafruit_Sensor.h>
+#include <Adafruit_LSM35.h>
+#include <elapsedMillis.h>
+
+// Define the onboard LED pin
+const int ledPin = 13;
+
+// Define variables to track time
+elapsedMillis blinkTimer;
+
+// Define temperature thresholds
+const float lowThreshold = 30.0; // Below this temperature, blink every 250ms
+const float highThreshold = 30.0; // Above this temperature, blink every 500ms
+
+// Create an instance of the Adafruit_LSM35 class
+Adafruit_LSM35 lsm35 = Adafruit_LSM35();
+
+// Define states
+enum LedState {
+  LOW_TEMP,
+  HIGH_TEMP
+};
+
+LedState ledState = LOW_TEMP;
+
+void setup() {
+  // Set the LED pin as an output
+  pinMode(ledPin, OUTPUT);
+  // Initialize communication with the sensor
+  if (!lsm35.begin()) {
+    Serial.println("Failed to initialize LSM35 sensor!");
+    while (1);
+  }
+}
+
+void loop() {
+  // Read the temperature from the sensor
+  sensors_event_t event;
+  lsm35.getEvent(&event);
+
+  // Check if the sensor reading is valid
+  if (event.temperature.isValid()) {
+    // Get the temperature in Celsius
+    float temperature = event.temperature.degrees;
+
+    // Print temperature value for debugging (optional)
+    Serial.print("Temperature: ");
+    Serial.println(temperature);
+
+    // Check temperature conditions and control LED blinking accordingly
+    switch (ledState) {
+      case LOW_TEMP:
+        if (temperature >= highThreshold) {
+          // Change state to HIGH_TEMP
+          ledState = HIGH_TEMP;
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+
+      case HIGH_TEMP:
+        if (temperature < lowThreshold) {
+          // Change state to LOW_TEMP
+          ledState = LOW_TEMP;
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+    }
+
+    // Update LED based on state and elapsed time
+    switch (ledState) {
+      case LOW_TEMP:
+        if (blinkTimer >= 250) {
+          // Toggle LED state
+          digitalWrite(ledPin, !digitalRead(ledPin));
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+
+      case HIGH_TEMP:
+        if (blinkTimer >= 500) {
+          // Toggle LED state
+          digitalWrite(ledPin, !digitalRead(ledPin));
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+    }
+  }
+}#include <Adafruit_Sensor.h>
+#include <Adafruit_LSM35.h>
+#include <elapsedMillis.h>
+
+// Define the onboard LED pin
+const int ledPin = 13;
+
+// Define variables to track time
+elapsedMillis blinkTimer;
+
+// Define temperature thresholds
+const float lowThreshold = 30.0; // Below this temperature, blink every 250ms
+const float highThreshold = 30.0; // Above this temperature, blink every 500ms
+
+// Create an instance of the Adafruit_LSM35 class
+Adafruit_LSM35 lsm35 = Adafruit_LSM35();
+
+// Define states
+enum LedState {
+  LOW_TEMP,
+  HIGH_TEMP
+};
+
+LedState ledState = LOW_TEMP;
+
+void setup() {
+  // Set the LED pin as an output
+  pinMode(ledPin, OUTPUT);
+  // Initialize communication with the sensor
+  if (!lsm35.begin()) {
+    Serial.println("Failed to initialize LSM35 sensor!");
+    while (1);
+  }
+}
+
+void loop() {
+  // Read the temperature from the sensor
+  sensors_event_t event;
+  lsm35.getEvent(&event);
+
+  // Check if the sensor reading is valid
+  if (event.temperature.isValid()) {
+    // Get the temperature in Celsius
+    float temperature = event.temperature.degrees;
+
+    // Print temperature value for debugging (optional)
+    Serial.print("Temperature: ");
+    Serial.println(temperature);
+
+    // Check temperature conditions and control LED blinking accordingly
+    switch (ledState) {
+      case LOW_TEMP:
+        if (temperature >= highThreshold) {
+          // Change state to HIGH_TEMP
+          ledState = HIGH_TEMP;
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+
+      case HIGH_TEMP:
+        if (temperature < lowThreshold) {
+          // Change state to LOW_TEMP
+          ledState = LOW_TEMP;
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+    }
+
+    // Update LED based on state and elapsed time
+    switch (ledState) {
+      case LOW_TEMP:
+        if (blinkTimer >= 250) {
+          // Toggle LED state
+          digitalWrite(ledPin, !digitalRead(ledPin));
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+
+      case HIGH_TEMP:
+        if (blinkTimer >= 500) {
+          // Toggle LED state
+          digitalWrite(ledPin, !digitalRead(ledPin));
+          // Reset timer
+          blinkTimer = 0;
+        }
+        break;
+    }
+  }
+}
